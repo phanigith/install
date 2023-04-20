@@ -1,4 +1,5 @@
 #!/bin/sh
+sudo su
 git clone https://github.com/Mirantis/cri-dockerd.git
 cd cri-dockerd
 mkdir bin
@@ -9,6 +10,7 @@ wget https://storage.googleapis.com/golang/getgo/installer_linux
 chmod +x ./installer_linux
 ./installer_linux
 source ~/.bash_profile
+source ~/.bash_profile
 
 go build -o bin/cri-dockerd
 mkdir -p /usr/local/bin
@@ -18,3 +20,4 @@ sed -i -e 's,/usr/bin/cri-dockerd,/usr/local/bin/cri-dockerd,' /etc/systemd/syst
 systemctl daemon-reload
 systemctl enable cri-docker.service
 systemctl enable --now cri-docker.socket
+systemctl start cri-docker.service
